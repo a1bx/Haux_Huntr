@@ -7,9 +7,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,8 +18,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  const Homepage({Key? key}) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -29,27 +29,83 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: Text('Qr code scanner'),backgroundColor:Colors.blue,),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Qr code scanner',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // removes the shadow
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.black, Colors.blueGrey],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ScanQRCode()),
+                    );
+                  });
+                },
+                child: Text('Scan Qr code'),
+              ),
+              SizedBox(height: 48),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => GenerateQRCode()),
+                    );
+                  });
+                },
+                child: Text('Generate QR Code'),
+              )
+            ],
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            ElevatedButton(onPressed: (){
-              setState(() {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ScanQRCode()));
-              });
-            }, child: Text('Scan Qr code')),
-            SizedBox(height:48,),
-            ElevatedButton(onPressed: (){
-              setState(() {
-                Navigator.of(context).push(MaterialPageRoute(builder:(context)=>GenerateQRCode()));
-              });
-            }, child: Text('Generate QR Code'))
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('History'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Log out'),
+              onTap: () {},
+            ),
           ],
         ),
       ),
     );
   }
 }
-
