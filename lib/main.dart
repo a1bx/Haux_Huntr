@@ -40,14 +40,14 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
         backgroundColor: Colors.transparent,
-        elevation: 0, // removes the shadow
+        elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.black, Colors.blueGrey],
+            colors: [Colors.grey, Colors.blueGrey],
           ),
         ),
         child: Center(
