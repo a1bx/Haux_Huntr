@@ -39,6 +39,7 @@ class _HomepageState extends State<Homepage> {
             color: Colors.black,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
