@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haux_huntr/generate_qr_code.dart';
 import 'package:haux_huntr/scan_qr_code.dart';
+import 'package:haux_huntr/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Haux Huntr',
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: SplashScreen(),
     );
   }
 }
@@ -48,7 +49,7 @@ class _HomepageState extends State<Homepage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.grey, Colors.blueGrey],
+            colors: [Colors.blue, Colors.blueGrey],
           ),
         ),
         child: Center(
