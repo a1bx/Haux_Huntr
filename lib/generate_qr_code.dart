@@ -15,7 +15,14 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Generate QR Code'),
+        title: Text(
+            'Generate QR Code',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal,
+          ),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
