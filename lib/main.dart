@@ -37,7 +37,7 @@ class _HomepageState extends State<Homepage> {
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.teal,
           ),
         ),
         centerTitle: true,
@@ -46,11 +46,7 @@ class _HomepageState extends State<Homepage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.blue, Colors.blueGrey],
-          ),
+
         ),
         child: Center(
           child: Column(
@@ -64,7 +60,13 @@ class _HomepageState extends State<Homepage> {
                     );
                   });
                 },
-                child: Text('Scan Qr code'),
+                child: Text(
+                    'Scan Qr code',
+                  style: TextStyle(
+                    color: Colors.teal,
+                  ),
+                ),
+
               ),
               SizedBox(height: 48),
               ElevatedButton(
@@ -75,7 +77,14 @@ class _HomepageState extends State<Homepage> {
                     );
                   });
                 },
-                child: Text('Generate QR Code'),
+                child: Text(
+                    'Generate QR Code',
+                  style: TextStyle(
+                    // fontSize: 20.0,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
               )
             ],
           ),
