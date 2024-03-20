@@ -52,7 +52,7 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
                   child: Text(
                       'Generate QR Code',
                     style: TextStyle(
-                      fontSize: 20,
+                      // fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.teal,
                     ),
