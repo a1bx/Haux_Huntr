@@ -19,11 +19,6 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.grey, Colors.blue],
-          ),
         ),
         child: Center(
           child: SingleChildScrollView(
