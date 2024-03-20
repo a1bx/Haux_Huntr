@@ -48,7 +48,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                 child: Text(
                     'Scan Code',
                   style: TextStyle(
-                    fontSize: 20,
+                    // fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.teal,
                   ),
