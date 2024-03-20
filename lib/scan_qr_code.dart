@@ -14,7 +14,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
 
   Future<void>scanQR()async{
     try{
-      final qrCode=await FlutterBarcodeScanner.scanBarcode('#ff6666','Cancel', true, ScanMode.QR);
+      final qrCode=await FlutterBarcodeScanner.scanBarcode('#008080','Cancel', true, ScanMode.QR);
       if (!mounted)return;
       setState(() {
         this.qrResult=qrCode.toString();
