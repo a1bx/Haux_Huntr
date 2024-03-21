@@ -10,13 +10,14 @@ class GenerateQRCode extends StatefulWidget {
 
 class _GenerateQRCodeState extends State<GenerateQRCode> {
   TextEditingController urlController = TextEditingController();
+  String qrData = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'Generate QR Code',
+          'Generate QR Code',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -25,34 +26,41 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
-        ),
+        decoration: BoxDecoration(),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (urlController.text.isNotEmpty)
-                  QrImageView(data: urlController.text, size: 200),
+                if (qrData.isNotEmpty)
+                  QrImageView(
+                    data: qrData,
+                    size: 200,
+                  ),
                 SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: TextField(
                     controller: urlController,
                     decoration: InputDecoration(
-                        hintText: 'Enter your data',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: 'Enter your text'),
+                      hintText: 'Enter your data',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      labelText: 'Enter your text',
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      qrData = urlController.text;
+                    });
+                  },
                   child: Text(
-                      'Generate QR Code',
+                    'Generate QR Code',
                     style: TextStyle(
-                      // fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.teal,
                     ),
