@@ -52,11 +52,13 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // SizedBox(height: 0),
               Image.asset(
                 'assets/images/qr_scan.png',
                 height: 150,
                 width: 150,
               ),
+              SizedBox(height: 80),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
