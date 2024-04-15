@@ -17,22 +17,24 @@ class OnboardingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/qr_scn.png', // Replace with your image asset path
+                'assets/images/img.png', // Replace with your image asset path
                 height: 200,
               ),
               SizedBox(height: 20),
               Text(
-                'Welcome to QR Scanner App',
+                'Welcome to Haux Hunter',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: Colors.teal,
                 ),
               ),
               SizedBox(height: 10),
               Text(
-                'Scan QR codes with ease and convenience.',
+                'Scan QR codes to know if your product is legit or a haux.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                    fontSize: 16),
               ),
               SizedBox(height: 30),
               ElevatedButton(
@@ -57,10 +59,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Scanner App'),
+        title: Text('Haux Huntr'),
       ),
       body: Center(
-        child: Text('Home Page'),
+        child: Text('Haux Huntr'),
       ),
     );
   }
