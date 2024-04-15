@@ -58,7 +58,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'QR Code Scanner',
+          'Haux Huntr',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -70,6 +70,12 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/img.png',
+              height: 150,
+              width: 150,
+            ),
+            SizedBox(height: 80),
             SizedBox(height: 30),
             Text(
               '$qrResult',
