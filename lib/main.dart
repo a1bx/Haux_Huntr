@@ -33,7 +33,7 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Qr code scanner',
+          'Haux Huntr',
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
@@ -54,9 +54,19 @@ class _HomepageState extends State<Homepage> {
             children: [
               // SizedBox(height: 0),
               Image.asset(
-                'assets/images/qr_scan.png',
+                'assets/images/img.png',
                 height: 150,
                 width: 150,
+              ),
+              SizedBox(height: 80),
+              SizedBox(height: 40),
+              Text(
+                'Pick any option to begin',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.teal,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 80),
               ElevatedButton(
@@ -103,7 +113,7 @@ class _HomepageState extends State<Homepage> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: Colors.teal,
               ),
               child: Text(
                 'Menu',
