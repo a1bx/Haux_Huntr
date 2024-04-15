@@ -17,7 +17,7 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Generate QR Code',
+          'Haux Huntr',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -26,47 +26,57 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(),
+        decoration: BoxDecoration(color: Colors.grey),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (qrData.isNotEmpty)
-                  QrImageView(
-                    data: qrData,
-                    size: 200,
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/img.png', // Replace with your image path
+                    height: 150, // Adjust the height as needed
                   ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: TextField(
-                    controller: urlController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your data',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  SizedBox(height: 20),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      color: Colors.grey[200],
+                      child: TextField(
+                        controller: urlController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your text',
+                          border: InputBorder.none,
+                        ),
                       ),
-                      labelText: 'Enter your text',
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      qrData = urlController.text;
-                    });
-                  },
-                  child: Text(
-                    'Generate QR Code',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal,
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        qrData = urlController.text;
+                      });
+                    },
+                    child: Text(
+                      'Generate QR Code',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 20),
+                  if (qrData.isNotEmpty)
+                    QrImageView(
+                      data: qrData,
+                      size: 300,
+                    ),
+                ],
+              ),
             ),
           ),
         ),
