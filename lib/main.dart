@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haux_huntr/generate_qr_code.dart';
 import 'package:haux_huntr/scan_qr_code.dart';
 import 'package:haux_huntr/splash_screen.dart';
+import 'package:haux_huntr/history.dart';
 
 void main() {
   runApp(const MyApp());
@@ -125,7 +126,11 @@ class _HomepageState extends State<Homepage> {
             ),
             ListTile(
               title: Text('History'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => HistoryPage()),
+                );
+              },
             ),
             ListTile(
               title: Text('Log out'),
