@@ -46,6 +46,7 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       color: Colors.grey[200],
                       child: TextField(
+
                         controller: urlController,
                         decoration: InputDecoration(
                           hintText: 'Enter your text',
