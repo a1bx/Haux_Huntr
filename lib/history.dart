@@ -55,21 +55,25 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
         final code = scannedCodes[index]['code'];
         final date = scannedCodes[index]['date'];
 
-        return ListTile(
-          leading: Icon(Icons.qr_code, color: Colors.teal), // Teal QR code icon
-          title: Text(code),
-          subtitle: Row(
-            children: [
-              Text(date), // Moved date to be below the delete icon
-              Spacer(), // Add space between date and delete icon
-              IconButton(
-                icon: Icon(Icons.delete, color: Colors.teal), // Teal delete icon
-                onPressed: () {
-                  // Implement code to delete the record
-                  // You may want to show a confirmation dialog before deleting
-                },
-              ),
-            ],
+        return Card(
+          elevation: 2,
+
+          child: ListTile(
+            leading: Icon(Icons.qr_code, color: Colors.teal), // Teal QR code icon
+            title: Text(code),
+            subtitle: Row(
+              children: [
+                Text(date), // Moved date to be below the delete icon
+                Spacer(), // Add space between date and delete icon
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.teal), // Teal delete icon
+                  onPressed: () {
+                    // Implement code to delete the record
+                    // You may want to show a confirmation dialog before deleting
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },
