@@ -57,7 +57,6 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
 
         return Card(
           elevation: 2,
-
           child: ListTile(
             leading: Icon(Icons.qr_code, color: Colors.teal), // Teal QR code icon
             title: Text(code),
@@ -68,8 +67,36 @@ class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStat
                 IconButton(
                   icon: Icon(Icons.delete, color: Colors.teal), // Teal delete icon
                   onPressed: () {
-                    // Implement code to delete the record
-                    // You may want to show a confirmation dialog before deleting
+                    // Show a confirmation dialog before deleting
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm Deletion'),
+                          content: Text('Are you sure you want to delete this record?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                // Dismiss the dialog
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // Perform the deletion
+                                setState(() {
+                                  scannedCodes.removeAt(index);
+                                });
+                                // Dismiss the dialog
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Delete'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ],
