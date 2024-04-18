@@ -114,12 +114,12 @@ class _HomepageState extends State<Homepage> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.teal,
+                color: Colors.teal[700],
               ),
               child: Text(
                 'Menu',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.grey[200],
                   fontSize: 24,
                 ),
               ),
