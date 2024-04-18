@@ -44,8 +44,8 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   }
 
   void launchURL() async {
-    if (await canLaunch(qrResult)) {
-      await launch(qrResult);
+    if (await canLaunchUrl(qrResult as Uri)) {
+      await launchUrl(qrResult as Uri);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Cannot launch URL')),
