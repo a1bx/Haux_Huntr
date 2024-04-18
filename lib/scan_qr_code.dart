@@ -44,8 +44,8 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   }
 
   void launchURL() async {
-    if (await canLaunchUrl(qrResult as Uri)) {
-      await launchUrl(qrResult as Uri);
+    if (await canLaunch(qrResult)) {
+      await launch(qrResult);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Cannot launch URL')),
@@ -77,9 +77,29 @@ class _ScanQRCodeState extends State<ScanQRCode> {
             ),
             SizedBox(height: 80),
             SizedBox(height: 30),
-            Text(
-              '$qrResult',
-              style: TextStyle(color: Colors.black),
+            Card(
+              elevation: 4,
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.qr_code, color: Colors.teal), // QR code icon
+                    title: Text(
+                      'Scan Result',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '$qrResult',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 30),
             ElevatedButton(
