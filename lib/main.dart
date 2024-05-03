@@ -84,7 +84,6 @@ class _HomepageState extends State<Homepage> {
                     color: Colors.teal,
                   ),
                 ),
-
               ),
               SizedBox(height: 48),
               ElevatedButton(
