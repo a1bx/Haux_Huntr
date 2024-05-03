@@ -77,22 +77,40 @@ class _ScanQRCodeState extends State<ScanQRCode> {
             ),
             SizedBox(height: 80),
             SizedBox(height: 30),
-            Card(
-              elevation: 4,
+            Container(
+              padding: EdgeInsets.all(12),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
               child: Column(
                 children: [
-                  ListTile(
-                    leading: Icon(Icons.qr_code, color: Colors.teal), // QR code icon
-                    title: Text(
-                      'Scan Result',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal,
+                  Row(
+                    children: [
+                      Icon(Icons.qr_code, color: Colors.teal, size: 50), // QR code icon
+                      SizedBox(width: 10),
+                      Text(
+                        'Scan Result',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
+                  SizedBox(height: 90),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20),
                     child: Text(
                       '$qrResult',
                       style: TextStyle(color: Colors.black),
@@ -101,7 +119,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 70),
             ElevatedButton(
               onPressed: scanQR,
               child: Text(
