@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.teal,
               ),
             ),
             SizedBox(height: 10),
