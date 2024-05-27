@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:haux_huntr/screens/history.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ScanQRCode extends StatefulWidget {
   const ScanQRCode({Key? key}) : super(key: key);
@@ -11,8 +13,11 @@ class ScanQRCode extends StatefulWidget {
 }
 
 class _ScanQRCodeState extends State<ScanQRCode> {
-  String qrResult = 'Scanned Data will appear here';
+  String qrResult = '';
   bool qrScanned = false;
+  bool showIcon = false;
+  bool showQRCode = false;
+  List<String> scanHistory = []; // List to store scan history
 
   Future<void> scanQR() async {
     try {
@@ -21,6 +26,8 @@ class _ScanQRCodeState extends State<ScanQRCode> {
       setState(() {
         qrResult = qrCode;
         qrScanned = true; // Set to true after scanning
+        showQRCode = false; // Reset QR code visibility
+        scanHistory.add(qrCode); // Add to scan history
       });
     } on PlatformException {
       setState(() {
@@ -44,8 +51,8 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   }
 
   void launchURL() async {
-    if (await canLaunchUrl(qrResult as Uri)) {
-      await launchUrl(qrResult as Uri);
+    if (await canLaunch(qrResult)) {
+      await launch(qrResult);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Cannot launch URL')),
@@ -53,75 +60,156 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     }
   }
 
+  void showHistory() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QRHistoryPage(scanHistory: scanHistory),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Haux Huntr',
+          'Result',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.teal,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/img.png',
-              height: 150,
-              width: 150,
-            ),
-            SizedBox(height: 80),
-            SizedBox(height: 30),
-            Container(
-              padding: EdgeInsets.all(12),
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
+      body: qrScanned ? buildResult() : buildScanButton(),
+      bottomNavigationBar: qrScanned ? buildBottomNavigationBar() : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: qrScanned
+          ? FloatingActionButton(
+        onPressed: scanQR,
+        shape: CircleBorder(),
+        child: Icon(Icons.qr_code),
+      )
+          : null,
+    );
+  }
+
+  Widget buildResult() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.qr_code, color: Colors.teal, size: 50),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.qr_code, color: Colors.teal, size: 50), // QR code icon
-                      SizedBox(width: 10),
-                      Text(
-                        'Scan Result',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.teal,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 90),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      '$qrResult',
-                      style: TextStyle(color: Colors.black),
+                  Text(
+                    'Data',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                  Text(
+                    '16 Dec 2022, 9:30 pm',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ],
               ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Text(
+            qrResult,
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(height: 10),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                showQRCode = !showQRCode; // Toggle QR code visibility
+              });
+            },
+            child: Text(
+              'Show QR Code',
+              style: TextStyle(color: Colors.blue, fontSize: 18),
             ),
-            SizedBox(height: 70),
-            ElevatedButton(
-              onPressed: scanQR,
+          ),
+          if (showQRCode)
+            QrImageView(
+              data: qrResult,
+              version: QrVersions.auto,
+              size: 200.0,
+            ),
+          SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton.icon(
+                onPressed: copyURL,
+                icon: Icon(Icons.copy),
+                label: Text('Copy'),
+              ),
+              ElevatedButton.icon(
+                onPressed: launchURL,
+                icon: Icon(Icons.open_in_browser),
+                label: Text('Launch'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildScanButton() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Welcome to the QR Code Scanner!',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.teal,
+            ),
+          ),
+          SizedBox(height: 50),
+          Text(
+            'Press the button below to start scanning:',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey[700],
+            ),
+          ),
+          SizedBox(height: 20),
+          AnimatedSwitcher(
+            duration: Duration(seconds: 1),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(child: child, scale: animation);
+            },
+            child: showIcon
+                ? Icon(Icons.check_circle, color: Colors.teal, size: 100, key: UniqueKey())
+                : ElevatedButton(
+              key: UniqueKey(),
+              onPressed: () {
+                setState(() {
+                  showIcon = !showIcon;
+                });
+                scanQR();
+              },
               child: Text(
                 'Scan Code',
                 style: TextStyle(
@@ -130,33 +218,30 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            if (qrScanned) // Show only if a QR code has been scanned
-              ElevatedButton(
-                onPressed: copyURL,
-                child: Text(
-                  'Copy URL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-              ),
-            SizedBox(height: 20),
-            if (qrScanned) // Show only if a QR code has been scanned
-              ElevatedButton(
-                onPressed: launchURL,
-                child: Text(
-                  'Launch URL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-              ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  BottomAppBar buildBottomNavigationBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 6.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: Icon(Icons.qr_code_scanner),
+            onPressed: scanQR,
+          ),
+          IconButton(
+            icon: Icon(Icons.history),
+            onPressed: showHistory,
+          ),
+        ],
       ),
     );
   }
 }
+
