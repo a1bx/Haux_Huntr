@@ -1,6 +1,6 @@
 // onboarding_screen.dart
 import 'package:flutter/material.dart';
-import 'package:product_id_blockchain/screens/home_screen.dart';
+import 'package:haux_huntr/screens/home_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -9,21 +9,21 @@ class OnboardingScreen extends StatelessWidget {
       title: 'Welcome to Product ID Blockchain',
       body: 'Verify the authenticity of products using blockchain technology.',
       image: Center(
-        child: Image.asset('assets/images/onboarding1.png'),
+        child: Image.asset('assets/images/blue_logo.png'),
       ),
     ),
     PageViewModel(
       title: 'Scan Product QR Code',
       body: 'Simply scan the QR code on the product to verify its authenticity.',
       image: Center(
-        child: Image.asset('assets/images/onboarding2.png'),
+        child: Image.asset('assets/images/qr_scan.png'),
       ),
     ),
     PageViewModel(
       title: 'Secure and Transparent',
       body: 'Blockchain ensures transparency and security in product verification.',
       image: Center(
-        child: Image.asset('assets/images/onboarding3.png'),
+        child: Image.asset('assets/images/blue_logo.png'),
       ),
     ),
   ];
