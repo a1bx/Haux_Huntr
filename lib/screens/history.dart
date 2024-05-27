@@ -1,109 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:haux_huntr/generate_qr_code.dart'; // Import your GenerateQRCode page
-// import 'package:haux_huntr/scan_qr_code.dart'; // Import your ScanQRCode page
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+class HistoryPage extends StatelessWidget {
+  final List<String> scanHistory;
 
-  @override
-  _HistoryPageState createState() => _HistoryPageState();
-}
-
-class _HistoryPageState extends State<HistoryPage> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
+  const HistoryPage({Key? key, required this.scanHistory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Dummy list of scanned QR codes (replace with your actual data)
-    List<Map<String, dynamic>> scannedCodes = [
-      {'code': 'https://itunes.com', 'date': '2024-04-15'},
-      {'code': 'https://itunes.com', 'date': '2024-04-14'},
-      // Add more entries as needed
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Scan History'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Scan'),
-            Tab(text: 'Create'),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildScanTab(scannedCodes),
-          GenerateQRCode(), // Your GenerateQRCode page
-        ],
+      body: ListView.builder(
+        itemCount: scanHistory.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Icon(Icons.qr_code),
+            title: Text(scanHistory[index]),
+          );
+        },
       ),
     );
   }
+}
 
-  Widget _buildScanTab(List<Map<String, dynamic>> scannedCodes) {
-    return ListView.builder(
-      itemCount: scannedCodes.length,
-      itemBuilder: (context, index) {
-        final code = scannedCodes[index]['code'];
-        final date = scannedCodes[index]['date'];
+class QRHistoryPage extends StatefulWidget {
+  final List<String> scanHistory;
 
-        return Card(
-          elevation: 2,
-          child: ListTile(
-            leading: Icon(Icons.qr_code, color: Colors.teal), // Teal QR code icon
-            title: Text(code),
-            subtitle: Row(
-              children: [
-                Text(date), // Moved date to be below the delete icon
-                Spacer(), // Add space between date and delete icon
-                IconButton(
-                  icon: Icon(Icons.delete, color: Colors.teal), // Teal delete icon
-                  onPressed: () {
-                    // Show a confirmation dialog before deleting
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Confirm Deletion'),
-                          content: Text('Are you sure you want to delete this record?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                // Dismiss the dialog
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // Perform the deletion
-                                setState(() {
-                                  scannedCodes.removeAt(index);
-                                });
-                                // Dismiss the dialog
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Delete'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
+  const QRHistoryPage({Key? key, required this.scanHistory}) : super(key: key);
+  @override
+  _QRHistoryPageState createState() => _QRHistoryPageState();
+}
+
+class _QRHistoryPageState extends State<QRHistoryPage> {
+  final List<String> scanHistory = [
+    'https://itunes.com',
+    'https://itunes.com',
+    'https://itunes.com',
+    'https://itunes.com',
+    'https://itunes.com',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('History'),
+      ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Scan',
+                  style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
-              ],
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Create',
+                  style: TextStyle(fontSize: 18, color: Colors.blue),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: scanHistory.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Icon(Icons.qr_code),
+                  title: Text(scanHistory[index]),
+                  subtitle: Text('16 Dec 2022, 9:30 pm'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        scanHistory.removeAt(index);
+                      });
+                    },
+                  ),
+                );
+              },
             ),
           ),
-        );
-      },
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.qr_code_scanner),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.history),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.home),
+      ),
     );
   }
 }
