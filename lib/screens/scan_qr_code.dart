@@ -103,72 +103,88 @@ class _ScanQRCodeState extends State<ScanQRCode> {
 
   Widget buildResult() {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.qr_code, color: Colors.teal, size: 50),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Data',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.qr_code, color: Colors.teal, size: 50),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Data',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '16 Dec 2022, 9:30 pm',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Text(
-            qrResult,
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 10),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                showQRCode = !showQRCode; // Toggle QR code visibility
-              });
-            },
-            child: Text(
-              'Show QR Code',
-              style: TextStyle(color: Colors.blue, fontSize: 18),
+                    Text(
+                      '16 Dec 2022, 9:30 pm',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-          if (showQRCode)
-            QrImageView(
-              data: qrResult,
-              version: QrVersions.auto,
-              size: 200.0,
+            SizedBox(height: 20),
+            Text(
+              qrResult,
+              style: TextStyle(fontSize: 18),
             ),
-          SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton.icon(
-                onPressed: copyURL,
-                icon: Icon(Icons.copy),
-                label: Text('Copy'),
+            SizedBox(height: 10),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  showQRCode = !showQRCode; // Toggle QR code visibility
+                });
+              },
+              child: Text(
+                'Show QR Code',
+                style: TextStyle(color: Colors.blue, fontSize: 18),
               ),
-              ElevatedButton.icon(
-                onPressed: launchURL,
-                icon: Icon(Icons.open_in_browser),
-                label: Text('Launch'),
+            ),
+            if (showQRCode)
+              QrImageView(
+                data: qrResult,
+                version: QrVersions.auto,
+                size: 200.0,
               ),
-            ],
-          ),
-        ],
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: copyURL,
+                  icon: Icon(Icons.copy),
+                  label: Text('Copy'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: launchURL,
+                  icon: Icon(Icons.open_in_browser),
+                  label: Text('Launch'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -244,4 +260,3 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     );
   }
 }
-
