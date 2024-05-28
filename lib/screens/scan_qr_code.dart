@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:haux_huntr/screens/history.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'history.dart';
+import 'package:intl/intl.dart';
 
 class ScanQRCode extends StatefulWidget {
   const ScanQRCode({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   bool showIcon = false;
   bool showQRCode = false;
   List<String> scanHistory = []; // List to store scan history
+  String scanDate = ''; // Variable to store the scan date
 
   Future<void> scanQR() async {
     try {
@@ -28,6 +30,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         qrScanned = true; // Set to true after scanning
         showQRCode = false; // Reset QR code visibility
         scanHistory.add(qrCode); // Add to scan history
+        scanDate = DateFormat('dd MMM yyyy, hh:mm a').format(DateTime.now()); // Store the current date and time
       });
     } on PlatformException {
       setState(() {
@@ -74,7 +77,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Result',
+          'QR Code Scanner',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -120,6 +123,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center, // Align items to the start
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,14 +134,15 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Data',
+                      'Scanned Data',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
+                        color: Colors.teal,
                       ),
                     ),
                     Text(
-                      '16 Dec 2022, 9:30 pm',
+                      scanDate,
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
@@ -145,11 +150,13 @@ class _ScanQRCodeState extends State<ScanQRCode> {
               ],
             ),
             SizedBox(height: 20),
-            Text(
-              qrResult,
-              style: TextStyle(fontSize: 18),
-            ),
             SizedBox(height: 10),
+            SelectableText(
+              qrResult,
+              style: TextStyle(fontSize: 18, color: Colors.teal),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
             TextButton(
               onPressed: () {
                 setState(() {
@@ -162,10 +169,12 @@ class _ScanQRCodeState extends State<ScanQRCode> {
               ),
             ),
             if (showQRCode)
-              QrImageView(
-                data: qrResult,
-                version: QrVersions.auto,
-                size: 200.0,
+              Center(
+                child: QrImageView(
+                  data: qrResult,
+                  version: QrVersions.auto,
+                  size: 200.0,
+                ),
               ),
             SizedBox(height: 30),
             Row(
@@ -173,13 +182,19 @@ class _ScanQRCodeState extends State<ScanQRCode> {
               children: [
                 ElevatedButton.icon(
                   onPressed: copyURL,
-                  icon: Icon(Icons.copy),
-                  label: Text('Copy'),
+                  icon: Icon(Icons.copy, color: Colors.teal),
+                  label: Text(
+                    'Copy URL',
+                    style: TextStyle(color: Colors.teal, fontSize: 18),
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: launchURL,
-                  icon: Icon(Icons.open_in_browser),
-                  label: Text('Launch'),
+                  icon: Icon(Icons.open_in_browser, color: Colors.teal),
+                  label: Text(
+                    'Launch URL',
+                    style: TextStyle(color: Colors.teal, fontSize: 18),
+                  ),
                 ),
               ],
             ),
@@ -195,7 +210,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Welcome to the QR Code Scanner!',
+            'Authenticate your Product here!',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
