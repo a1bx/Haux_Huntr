@@ -1,29 +1,5 @@
 import 'package:flutter/material.dart';
 
-class HistoryPage extends StatelessWidget {
-  final List<String> scanHistory;
-
-  const HistoryPage({Key? key, required this.scanHistory}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Scan History'),
-      ),
-      body: ListView.builder(
-        itemCount: scanHistory.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Icon(Icons.qr_code),
-            title: Text(scanHistory[index]),
-          );
-        },
-      ),
-    );
-  }
-}
-
 class QRHistoryPage extends StatefulWidget {
   final List<String> scanHistory;
 
@@ -36,13 +12,6 @@ class _QRHistoryPageState extends State<QRHistoryPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
-  final List<String> scanHistory = [
-    'https://itunes.com',
-    'https://itunes.com',
-    'https://itunes.com',
-    'https://itunes.com',
-    'https://itunes.com',
-  ];
 
   @override
   void initState() {
@@ -73,7 +42,9 @@ class _QRHistoryPageState extends State<QRHistoryPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History'),
+        title: Text('History',
+          style: TextStyle(color: Colors.teal),
+        ),
       ),
       body: Column(
         children: [
@@ -105,17 +76,17 @@ class _QRHistoryPageState extends State<QRHistoryPage>
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: scanHistory.length,
+              itemCount: widget.scanHistory.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: Icon(Icons.qr_code, color: Colors.teal),
-                  title: Text(scanHistory[index]),
+                  title: Text(widget.scanHistory[index]),
                   subtitle: Text('16 Dec 2022, 9:30 pm'),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
                       setState(() {
-                        scanHistory.removeAt(index);
+                        widget.scanHistory.removeAt(index);
                       });
                     },
                   ),
@@ -131,7 +102,9 @@ class _QRHistoryPageState extends State<QRHistoryPage>
           children: [
             IconButton(
               icon: Icon(Icons.qr_code_scanner),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
             IconButton(
               icon: Icon(Icons.history),
@@ -142,7 +115,9 @@ class _QRHistoryPageState extends State<QRHistoryPage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         child: Icon(Icons.home),
       ),
     );
