@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:haux_huntr/screens/generate_qr_code.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.teal,
               ),
               child: Text(
-                'Haux Huntr Menu',
+                'Menu',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -69,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/images/blockchain.svg',
-              height: 100,
-            ),
+            // SvgPicture.asset(
+            //   'assets/images/blockchain.svg',
+            //   height: 100,
+            // ),
             SizedBox(height: 20),
             Text(
               'Welcome to Haux Huntr!',
@@ -90,7 +91,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
+            Column(
+              children: [
+                Image.asset('assets/images/img.png',
+                  height: 170,
+                ),
+              ],
+            ),
+            SizedBox(height: 40),
             ExpansionTile(
               title: Text('Scanned QR Codes History'),
               initiallyExpanded: false,
