@@ -217,6 +217,14 @@ class _ScanQRCodeState extends State<ScanQRCode> {
               color: Colors.teal,
             ),
           ),
+          SizedBox(height: 40),
+          Column(
+            children: [
+              Image.asset('assets/images/img.png',
+                height: 170,
+              ),
+            ],
+          ),
           SizedBox(height: 50),
           Text(
             'Press the button below to start scanning:',
