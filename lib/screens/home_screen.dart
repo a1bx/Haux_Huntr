@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:haux_huntr/screens/generate_qr_code.dart';
 import 'package:haux_huntr/screens/scan_qr_code.dart';
 import 'package:haux_huntr/screens/history.dart';
-import 'package:haux_huntr/screens/settings.dart'; // Import the Settings screen
+import 'package:haux_huntr/screens/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -83,11 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.teal,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 40),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Use this app to verify the authenticity of products using blockchain technology. Scan or generate QR codes to get started.',
+                'Use this app to verify the authenticity of products.',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'With the help of blockchain technology. Scan or generate QR codes to get started.',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -151,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (context) => ScanQRCode()),
           );
         },
+        backgroundColor: Colors.white54,
         child: Icon(Icons.qr_code,
         color: Colors.teal,
         ),
