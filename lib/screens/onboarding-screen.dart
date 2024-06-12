@@ -1,4 +1,3 @@
-// onboarding_screen.dart
 import 'package:flutter/material.dart';
 import 'package:haux_huntr/screens/home_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
