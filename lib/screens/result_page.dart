@@ -6,8 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 class ResultPage extends StatefulWidget {
   final String qrResult;
   final String scanDate;
+  final bool isGenuine;
 
-  const ResultPage({Key? key, required this.qrResult, required this.scanDate}) : super(key: key);
+  const ResultPage({Key? key, required this.qrResult, required this.scanDate, required this.isGenuine}) : super(key: key);
 
   @override
   _ResultPageState createState() => _ResultPageState();
@@ -92,7 +93,6 @@ class _ResultPageState extends State<ResultPage> {
         ),
       ),
       body: buildResult(),
-      // bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
@@ -146,6 +146,15 @@ class _ResultPageState extends State<ResultPage> {
               widget.qrResult,
               style: TextStyle(fontSize: 18, color: Colors.teal),
               textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            Text(
+              widget.isGenuine ? 'The product is genuine.' : 'The product is not genuine.',
+              style: TextStyle(
+                fontSize: 18,
+                color: widget.isGenuine ? Colors.green : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 20),
             TextButton(
