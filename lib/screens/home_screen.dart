@@ -1,6 +1,4 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:haux_huntr/screens/generate_qr_code.dart';
 import 'package:haux_huntr/screens/scan_qr_code.dart';
 import 'package:haux_huntr/screens/history.dart';
