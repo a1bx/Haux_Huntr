@@ -25,12 +25,16 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         scanHistory.add(qrCode); // Add to scan history
       });
 
+      // Verify the QR code data
+      bool isGenuine = isQRCodeGenuine(qrCode);
+
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ResultPage(
             qrResult: qrCode,
             scanDate: scanDate,
+            isGenuine: isGenuine,
           ),
         ),
       );
@@ -144,5 +148,13 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         ],
       ),
     );
+  }
+
+  bool isQRCodeGenuine(String scannedQRCode) {
+    // Check if the scanned QR code contains a URL
+    if (scannedQRCode.startsWith('http://') || scannedQRCode.startsWith('https://')) {
+      return false; // Mark as fake if it contains a URL
+    }
+    return true; // Otherwise, mark as genuine
   }
 }
