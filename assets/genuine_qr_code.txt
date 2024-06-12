@@ -1,0 +1,7 @@
+{
+  "genuine_qr_codes": [
+    "genuineQRCode1",
+    "genuineQRCode2",
+    "genuineQRCode3"
+  ]
+}
